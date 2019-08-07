@@ -1,4 +1,10 @@
 language: cpp
-compiler: gcc
+sudo: required
+dist: trusty
+compiler: g++
 os: linux
-script: ./build.sh
+install:
+  - sudo apt-get install cmake
+script:
+  - ./build.sh
+  
