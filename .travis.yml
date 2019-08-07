@@ -1,7 +1,7 @@
 language: cpp
 sudo: required
 dist: trusty
-compiler: g++
+compiler: g++-8
 os: linux
 install:
   - sudo apt-get install cmake
