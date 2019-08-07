@@ -1,6 +1,7 @@
 # 多线程高并发HTTP服务器
 
 [![Build Status](https://travis-ci.org/zrui65/ToyHttpSever.svg?branch=master)](https://travis-ci.org/zrui65/ToyHttpSever)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)   
 
 ## Introduction
   
