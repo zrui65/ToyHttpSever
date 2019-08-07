@@ -1,5 +1,7 @@
 # 多线程高并发HTTP服务器
 
+[![Build Status](https://travis-ci.org/zrui65/ToyHttpSever.svg?branch=master)](https://travis-ci.org/zrui65/ToyHttpSever)
+
 ## Introduction
   
     ToyHttpServer是一个使用Modern C++编写的多线程HTTP服务器,主要用于学习Reactor,多线程以及网络编程.
