@@ -1,20 +1,19 @@
-language: cpp
 sudo: required
 dist: trusty
-compiler: g++-8
-matrix:
-  include:
-    - os: linux
-          addons:
-            apt:
-              sources:  
-                - ubuntu-toolchain-r-test
-              packages:
-                - g++-7
-          env:
-            - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+language: cpp
+os: linux
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-7
+      - g++-7
 install:
   - sudo apt-get install cmake
 script:
+  - export CC=gcc-7
+  - export CXX=g++-7
   - ./build.sh
+  
   
