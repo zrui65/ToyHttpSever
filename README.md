@@ -1,6 +1,7 @@
 # 多线程高并发HTTP服务器
 
 [![Build Status](https://travis-ci.org/zrui65/ToyHttpSever.svg?branch=master)](https://travis-ci.org/zrui65/ToyHttpSever)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)   
 
 ## Introduction
   
@@ -45,7 +46,7 @@
 * 采用主线程accept+子线程IO的模型;
 * 每个线程使用Reactor模式,通过epoll边沿触发的IO复用实现;
 * 子线程采用线程池的方式,充分利用多核CPU;
-* 采用基于小跟堆实现的定时器,用于关闭超时的连接;
+* 采用基于小根堆实现的定时器,用于关闭超时的连接;
 * 采用runInLoop减少锁的争用;
 * 采用智能指针等RAII机制避免内存泄露以及实现自动析构;
 * 采用状态机解析HTTP请求;
