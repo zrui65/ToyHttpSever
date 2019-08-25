@@ -104,7 +104,7 @@ void HttpServer::newConnection(int connfd) {
 
 /* 
  * 注意这里的实现,我们的目的有两个,首先在主线程的ConnectionMap中erase掉目标Connection,然后在子线程中释放掉目标
- * Connection,由于Connection由只能指针管理,所以我们需要保证全程至少拥有一个ConnectionPtr,仅仅在最后释放掉,即
+ * Connection,由于Connection由智能指针管理,所以我们需要保证全程至少拥有一个ConnectionPtr,仅仅在最后释放掉,即
  * 可完成任务.
  * 
  * 这里的整个过程为handleClose(子线程中运行)->removeConnection(子线程中运行)->removeConnectionInLoop(主线
@@ -121,7 +121,6 @@ void HttpServer::newConnection(int connfd) {
 void HttpServer::removeConnection(int fd) {
     _loop->runInLoop(std::bind(&HttpServer::removeConnectionInLoop, this, fd));
 }
-
 
 void HttpServer::removeConnectionInLoop(int fd) {
     ConnectionPtr conn = _connmap[fd];

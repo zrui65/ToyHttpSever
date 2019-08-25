@@ -23,10 +23,10 @@ set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_FLAGS_DEBUG "-O0")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -finline-limit=1000 -DNDEBUG")
 
-include_directories(.)
+include_directories(src)
 
 #当前目录下所有源文件赋给DIR_SRCS
-aux_source_directory(. ALL_OBJ)
+aux_source_directory(src ALL_OBJ)
 
 #生成可执行文件
 add_executable(ToyHttpServer ${ALL_OBJ}) 

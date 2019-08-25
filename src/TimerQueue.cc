@@ -25,11 +25,7 @@ void TimerQueue::setNewTime(TimerPtr timer) {
     struct itimerspec newValue;
     memset(&newValue, 0, sizeof newValue);
 
-    // std::cout << "Timer::now() = " << Timer::now() << std::endl;
-    // std::cout << "timer->key() = " << timer->key() << std::endl;
     int64_t delta = timer->key() - Timer::now();
-
-    // std::cout << delta << std::endl;
 
     newValue.it_value.tv_sec = delta / 1000000;
     newValue.it_value.tv_nsec = (delta % 1000000) * 1000;
@@ -52,11 +48,10 @@ void TimerQueue::addTimer(TimerPtr timer) {
 void TimerQueue::handleExpiration(){
 
     uint64_t howmany;
-    ::read(_timerfd, &howmany, sizeof howmany); // 由于epoll为水平触发,需要read _timerfd才能解除,否则会一直触发
+    ::read(_timerfd, &howmany, sizeof howmany); // 当epoll为水平触发时,需要read_timerfd才能解除,否则会一直触发
 
     int64_t now_time = Timer::now();
-    // std::cout << "now_time = " << now_time << std::endl;
-    // std::cout << "Timer Handler" << std::endl;
+
     while(!_timer_list.empty()) {
         TimerPtr cur = _timer_list.top();
         
@@ -66,7 +61,6 @@ void TimerQueue::handleExpiration(){
         }
         
         if(cur->isValid()) {
-            // std::cout << "cur->key() = " << cur->key() << std::endl;
             cur->runHandler();
         }
 

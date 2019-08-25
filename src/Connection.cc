@@ -88,12 +88,15 @@ void Connection::handleRead() {
 
     ssize_t ret = readn();
 
+    // 如果对端关闭连接
     if(_peer_shutdown) {
         handleClose();
         return;
     }
 
     if(ret > 0) {
+        // FIXME: 每次必须接收到完整的HTTP请求并进行解析之后,才能清除缓冲区; 如果HTTP请求不完整,
+        // 将会造成错误;
         size_t position = _http_process.process(_inbuffer, _outbuffer);
 
         if(!_outbuffer.empty()) {

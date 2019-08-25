@@ -128,7 +128,6 @@ void EventLoop::dealActiveTriggers() {
     _active_trigger.clear();
 }
 
-
 void EventLoop::loop() {
     while(!_quit) {
         // std::cout << "start loop***********" << std::endl;
@@ -142,6 +141,10 @@ void EventLoop::loop() {
 // 以下这些函数是muduo网络库中对多线程任务的一个技巧实现;
 // 一个线程向另一个线程添加任务均调用以下函数实现,所以下面的核心函数中
 // 都会通过mutex进行保护,而上面的函数则必须运行在本线程中.
+
+// 其实runInLoop函数仅仅在两个地方被使用,且都是使用在主线程与子线程之间;
+// 1. 主线程接受连接时通过runInLoop向子线程注册事件;
+// 2. 系统quit时析构子线程的过程中,通过主线程与子线程相互调用runInLoop实现;
 
 void EventLoop::runInLoop(Functor cb) {
     if(isInLoopThread()) { // 如果runInLoop被本线程调用,
@@ -165,6 +168,7 @@ void EventLoop::queueInLoop(Functor cb) {
 
 void EventLoop::doPendingFunctors() {
     // 注意这里的实现技巧
+    // 不仅减小了临界区的长度,而且避免了死锁,因为Functors中有可能调用runInLoop
     FunctorVector functors;
 
     {
@@ -176,3 +180,4 @@ void EventLoop::doPendingFunctors() {
         functor(); 
     }
 }
+
